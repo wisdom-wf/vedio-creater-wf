@@ -12,7 +12,58 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* ═══════════════════════════════════════════════════════════
-       BOTTOM BAR — 40px fixed, avatar + one-line quote
+       SUBTITLE SYSTEM — 字幕覆盖层
+    ═══════════════════════════════════════════════════════════ */
+    #subtitle-wrap {
+      position: absolute;
+      bottom: 112px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      pointer-events: none;
+    }
+    #subtitle-bg {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.60);
+      backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    #sub-text {
+      position: relative;
+      z-index: 1;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.05rem, 1.7vw, 1.45rem);
+      color: rgba(255,255,255,0.38);
+      text-align: center;
+      padding: 14px 60px;
+      line-height: 2.0;
+      letter-spacing: 0.04em;
+      max-width: 1360px;
+      min-height: 62px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+    }
+    .sub-char {
+      display: inline-block;
+      transition: color 0.18s ease, text-shadow 0.18s ease;
+      color: rgba(255,255,255,0.38);
+    }
+    .sub-char.lit {
+      color: #f5f5f5;
+      font-weight: 700;
+      text-shadow: 0 0 18px rgba(255,255,255,0.55);
+    }
+    .sub-space { display: inline-block; width: 0.38em; }
+
+    /* ═══════════════════════════════════════════════════════════
+       BOTTOM BAR — 100px fixed, avatar + one-line quote
     ═══════════════════════════════════════════════════════════ */
     .s-bottom-bar {
       position: absolute;
@@ -24,7 +75,7 @@
       pointer-events: none;
       z-index: 100;
     }
-        .s-quote-wrap {
+    .s-quote-wrap {
       flex: 1;
       padding: 0 24px;
       overflow: hidden;
@@ -44,7 +95,6 @@
 
     /* ═══════════════════════════════════════════════════════════
        UPPER ZONE — 1040px, split 50/50 for content scenes
-       Left + Right each: center children vertically, extend outward
     ═══════════════════════════════════════════════════════════ */
     .s-upper {
       position: absolute;
@@ -53,8 +103,6 @@
       right: 0;
       height: 1040px;
     }
-
-    /* 50/50 split containers */
     .s-left-zone,
     .s-right-zone {
       position: absolute;
@@ -62,7 +110,7 @@
       height: 1040px;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* vertical center */
+      justify-content: center;
     }
     .s-left-zone  { left: 0;      width: 50%; padding: 0 64px 0 96px; }
     .s-right-zone { right: 0;     width: 50%; padding: 0 96px 0 64px; }
@@ -77,11 +125,11 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center; /* horizontal center */
+      align-items: center;
     }
 
     /* ═══════════════════════════════════════════════════════════
-       SCENE 1 — 开场·自我介绍 0–17s (left text / right photo split)
+       SCENE 1 — 开场·自我介绍 0–17s
     ═══════════════════════════════════════════════════════════ */
     #s1 { background: #08080c; }
     #s1-amb-1 {
@@ -111,7 +159,6 @@
       width: 100%; height: 100%;
       object-fit: contain;
     }
-    /* Left-zone content: centered */
     #s1-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.75rem, 1.1vw, 1rem);
@@ -158,7 +205,6 @@
       background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.05) 0%, transparent 60%);
       pointer-events: none;
     }
-    /* Left zone: text stack */
     #s2-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.65rem, 1vw, 0.75rem);
@@ -187,7 +233,6 @@
       font-family: 'Inter', sans-serif;
       font-size: clamp(0.75rem, 1.1vw, 0.875rem); font-weight: 600; color: #e5e5e5;
     }
-    /* Right zone: 3 cards grid */
     #s2-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     #s2-card-1, #s2-card-2, #s2-card-3 {
       background: #141414; border: 1px solid #2a2a2a;
@@ -239,7 +284,6 @@
       padding-top: 20px; margin-top: 8px;
     }
     #s3-quote em { color: #E8C97A; font-style: normal; font-weight: 600; }
-    /* Right zone: 2 company cards */
     #s3-grid { display: flex; flex-direction: column; gap: 16px; }
     #s3-company-1, #s3-company-2 {
       background: #141414; border: 1px solid #2a2a2a;
@@ -277,7 +321,6 @@
       background: radial-gradient(ellipse at 50% 50%, rgba(167,139,250,0.05) 0%, transparent 65%);
       pointer-events: none;
     }
-    /* Left: eyebrow + headline + punchline */
     #s4-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.65rem, 1vw, 0.75rem);
@@ -296,7 +339,6 @@
       font-size: clamp(0.7rem, 1vw, 0.8rem); font-weight: 500; color: #a78bfa;
       letter-spacing: 0.08em;
     }
-    /* Right: 7 agents 2-column grid */
     #s4-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     #s4-agent-1, #s4-agent-2, #s4-agent-3, #s4-agent-4, #s4-agent-5, #s4-agent-6, #s4-agent-7 {
       background: #141414; border: 1px solid #2a2a2a;
@@ -340,7 +382,6 @@
       background: radial-gradient(ellipse at 50% 30%, rgba(245,158,11,0.05) 0%, transparent 60%);
       pointer-events: none;
     }
-    /* Left: text */
     #s5-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.65rem, 1vw, 0.75rem);
@@ -357,7 +398,6 @@
       font-family: 'Inter', sans-serif;
       font-size: clamp(0.85rem, 1.3vw, 1rem); color: #666; font-style: italic;
     }
-    /* Right: 3 stats */
     #s5-stats { display: flex; flex-direction: column; gap: 20px; }
     #s5-stat-1, #s5-stat-2, #s5-stat-3 { display: flex; align-items: baseline; gap: 12px; }
     #s5-stat-num-1 {
@@ -393,7 +433,6 @@
       background: radial-gradient(ellipse at 30% 50%, rgba(245,158,11,0.05) 0%, transparent 60%);
       pointer-events: none;
     }
-    /* Left: text content */
     #s6-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.9rem, 1.2vw, 1.1rem);
@@ -416,7 +455,6 @@
       font-size: clamp(1.3rem, 2.2vw, 1.9rem); font-weight: 700; color: #f5f5f5; margin-bottom: 24px;
     }
     #s6-a em { color: #f59e0b; font-style: normal; }
-    /* Right: case + flow */
     #s6-right-inner { display: flex; flex-direction: column; gap: 20px; }
     #s6-case {
       background: #141414; border: 1px solid #2a2a2a;
@@ -465,7 +503,6 @@
       background: radial-gradient(ellipse at 80% 30%, rgba(6,182,212,0.06) 0%, transparent 60%);
       pointer-events: none;
     }
-    /* Left: text */
     #s7-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.65rem, 1vw, 0.75rem);
@@ -494,7 +531,6 @@
       font-family: 'Inter', sans-serif;
       font-size: clamp(0.75rem, 1vw, 0.9rem); color: #888; margin-top: 6px;
     }
-    /* Right: projects + achievements */
     #s7-projects { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 16px; }
     #s7-project-1, #s7-project-2, #s7-project-3 {
       background: #141414; border: 1px solid #2a2a2a;
@@ -526,7 +562,6 @@
       background: radial-gradient(ellipse at 20% 50%, rgba(100,100,200,0.05) 0%, transparent 60%);
       pointer-events: none;
     }
-    /* Full-width: headline + 2 service cards side by side */
     #s8-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.65rem, 1vw, 0.75rem);
@@ -581,7 +616,6 @@
       background: radial-gradient(ellipse at 50% 50%, rgba(167,139,250,0.05) 0%, transparent 65%);
       pointer-events: none;
     }
-    /* Left: text */
     #s9-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.65rem, 1vw, 0.75rem);
@@ -600,7 +634,6 @@
       font-size: clamp(0.7rem, 1vw, 0.8rem); font-weight: 500; color: #a78bfa;
       letter-spacing: 0.08em; opacity: 0.6;
     }
-    /* Right: 7 agents 2-col grid */
     #s9-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     #s9-agent-1, #s9-agent-2, #s9-agent-3, #s9-agent-4, #s9-agent-5, #s9-agent-6, #s9-agent-7 {
       background: #141414; border: 1px solid #2a2a2a;
@@ -632,7 +665,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       SCENE 10 — 结语CTA 266–321s (left text / right photo split)
+       SCENE 10 — 结语CTA 295–347s
     ═══════════════════════════════════════════════════════════ */
     #s10 { background: #08080c; }
     #s10-amb-1 {
@@ -662,7 +695,6 @@
       width: 100%; height: 100%;
       object-fit: contain;
     }
-    /* Left-zone content: centered CTA */
     #s10-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: clamp(0.8rem, 1.1vw, 1rem);
@@ -765,7 +797,13 @@
     .s-logo img { width: 100%; height: auto; display: block; }
   </style>
 
-  <!-- ═══════════════════ SCENE 1 — PHOTO BG, FULL-WIDTH ═══════════════════ -->
+  <!-- ═══════════════════ SUBTITLE OVERLAY ═══════════════════ -->
+  <div id="subtitle-wrap">
+    <div id="subtitle-bg"></div>
+    <div id="sub-text"></div>
+  </div>
+
+  <!-- ═══════════════════ SCENE 1 ═══════════════════ -->
   <div id="s1">
     <div id="s1-amb-1"></div>
     <div id="s1-upper">
@@ -982,7 +1020,7 @@
     <div class="s-logo"><img src="assets/images/logo.png" alt="红泥数智" /></div>
   </div>
 
-  <!-- ═══════════════════ SCENE 8 — FULL WIDTH ═══════════════════ -->
+  <!-- ═══════════════════ SCENE 8 ═══════════════════ -->
   <div id="s8">
     <div id="s8-amb-1"></div>
     <div class="s-full-zone">
@@ -1041,7 +1079,7 @@
     <div class="s-logo"><img src="assets/images/logo.png" alt="红泥数智" /></div>
   </div>
 
-  <!-- ═══════════════════ SCENE 10 — LEFT TEXT / RIGHT PHOTO SPLIT ═══════════════════ -->
+  <!-- ═══════════════════ SCENE 10 ═══════════════════ -->
   <div id="s10">
     <div id="s10-amb-1"></div>
     <div id="s10-upper">
@@ -1084,179 +1122,324 @@
 
       var tl = gsap.timeline({ paused: true });
 
-      /* ── S1 (0-17s) ── */
-      tl.set('#s1-eyebrow', {opacity:0}, 0.2);
-      tl.to('#s1-eyebrow',  {opacity:1, ease:'power2.out', duration:0.4}, 0.2);
-      tl.set('#s1-title', {opacity:0}, 0.5);
-      tl.to('#s1-title',  {opacity:1, ease:'power2.out', duration:0.5}, 0.5);
-      tl.set('#s1-rule', {opacity:0}, 0.95);
-      tl.to('#s1-rule',  {opacity:1, ease:'power2.out', duration:0.3}, 0.95);
-      tl.set('#s1-name', {opacity:0}, 1.1);
-      tl.to('#s1-name',  {opacity:1, ease:'power2.out', duration:0.4}, 1.1);
-      tl.set('#s1-desc', {opacity:0}, 1.25);
-      tl.to('#s1-desc',  {opacity:1, ease:'power2.out', duration:0.4}, 1.25);
-      tl.set('#s1-quote-txt', {opacity:0}, 1.7);
-      tl.to('#s1-quote-txt',  {opacity:1, ease:'power2.out', duration:0.4}, 1.7);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 1 — 0–17s  入场：从上方滑入 + scale弹入
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s1-eyebrow',  {opacity:0, y:-18}, 0.2);
+      tl.to('#s1-eyebrow',   {opacity:1, y:0,  ease:'power2.out', duration:0.45}, 0.2);
+      tl.set('#s1-title',    {opacity:0, y:28, scale:0.93}, 0.5);
+      tl.to('#s1-title',     {opacity:1, y:0,  scale:1, ease:'back.out(1.3)', duration:0.6}, 0.5);
+      tl.set('#s1-rule',     {opacity:0, scaleX:0}, 0.95);
+      tl.to('#s1-rule',     {opacity:1, scaleX:1, ease:'power2.out', duration:0.35}, 0.95);
+      tl.set('#s1-name',     {opacity:0, y:14}, 1.15);
+      tl.to('#s1-name',     {opacity:1, y:0,  ease:'power2.out', duration:0.45}, 1.15);
+      tl.set('#s1-desc',     {opacity:0, y:10}, 1.3);
+      tl.to('#s1-desc',     {opacity:1, y:0,  ease:'power2.out', duration:0.4}, 1.3);
+      tl.set('#s1-quote-txt',{opacity:0}, 1.75);
+      tl.to('#s1-quote-txt', {opacity:1, ease:'power2.out', duration:0.4}, 1.75);
       tl.from('#s1-amb-1', { y:'+=16', scale:1.06, opacity:0.06, repeat:ambR(5,0,17), yoyo:true, duration:5, ease:'sine.inOut' }, 0);
 
-      /* ── S2 (17-45s) ── */
-      tl.set('#s2-eyebrow', {opacity:0}, 17.2);
-      tl.to('#s2-eyebrow',  {opacity:1, ease:'power2.out', duration:0.35}, 17.2);
-      tl.set('#s2-headline', {opacity:0}, 17.4);
-      tl.to('#s2-headline',  {opacity:1, ease:'power2.out', duration:0.5}, 17.4);
-      tl.set('#s2-tag-1, #s2-tag-2', {opacity:0}, 17.8);
-      tl.to('#s2-tag-1, #s2-tag-2',  {opacity:1, ease:'power2.out', duration:0.35, stagger:0.1}, 17.8);
-      tl.set('#s2-card-1, #s2-card-2, #s2-card-3', {opacity:0}, 18.1);
-      tl.to('#s2-card-1, #s2-card-2, #s2-card-3',  {opacity:1, ease:'power2.out', duration:0.4, stagger:0.12}, 18.1);
-      tl.set('#s2-quote-txt', {opacity:0}, 18.8);
-      tl.to('#s2-quote-txt',  {opacity:1, ease:'power2.out', duration:0.4}, 18.8);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 2 — 17–45s  入场：文字滑入 + 卡片依次弹入
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s2-eyebrow',  {opacity:0, y:-14}, 17.2);
+      tl.to('#s2-eyebrow',   {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 17.2);
+      tl.set('#s2-headline', {opacity:0, y:22}, 17.45);
+      tl.to('#s2-headline',  {opacity:1, y:0,  ease:'back.out(1.2)', duration:0.55}, 17.45);
+      tl.set('#s2-tag-1',    {opacity:0, x:-16}, 17.85);
+      tl.to('#s2-tag-1',    {opacity:1, x:0,  ease:'power2.out', duration:0.35}, 17.85);
+      tl.set('#s2-tag-2',    {opacity:0, x:-16}, 17.98);
+      tl.to('#s2-tag-2',    {opacity:1, x:0,  ease:'power2.out', duration:0.35}, 17.98);
+      tl.set('#s2-card-1',   {opacity:0, y:20, scale:0.91}, 18.2);
+      tl.to('#s2-card-1',   {opacity:1, y:0,  scale:1, ease:'back.out(1.4)', duration:0.45}, 18.2);
+      tl.set('#s2-card-2',   {opacity:0, y:20, scale:0.91}, 18.4);
+      tl.to('#s2-card-2',   {opacity:1, y:0,  scale:1, ease:'back.out(1.4)', duration:0.45}, 18.4);
+      tl.set('#s2-card-3',  {opacity:0, y:20, scale:0.91}, 18.6);
+      tl.to('#s2-card-3',   {opacity:1, y:0,  scale:1, ease:'back.out(1.4)', duration:0.45}, 18.6);
+      tl.set('#s2-quote-txt',{opacity:0}, 19.0);
+      tl.to('#s2-quote-txt', {opacity:1, ease:'power2.out', duration:0.4}, 19.0);
       tl.from('#s2-amb-1', { y:'+=12', scale:1.04, opacity:0.05, repeat:ambR(5,17,45), yoyo:true, duration:5, ease:'sine.inOut' }, 17);
 
-      /* ── S3 (45-76s) ── */
-      tl.set('#s3-eyebrow', {opacity:0}, 45.2);
-      tl.to('#s3-eyebrow',  {opacity:1, ease:'power2.out', duration:0.35}, 45.2);
-      tl.set('#s3-headline', {opacity:0}, 45.4);
-      tl.to('#s3-headline',  {opacity:1, ease:'power2.out', duration:0.45}, 45.4);
-      tl.set('#s3-quote', {opacity:0}, 45.8);
-      tl.to('#s3-quote',  {opacity:1, ease:'power2.out', duration:0.5}, 45.8);
-      tl.set('#s3-company-1, #s3-company-2', {opacity:0}, 46.2);
-      tl.to('#s3-company-1, #s3-company-2',  {opacity:1, ease:'power2.out', duration:0.5, stagger:0.2}, 46.2);
-      tl.set('#s3-quote-txt', {opacity:0}, 47.0);
-      tl.to('#s3-quote-txt',  {opacity:1, ease:'power2.out', duration:0.4}, 47.0);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 3 — 45–76s  入场：左右卡片对向滑入
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s3-eyebrow',  {opacity:0, y:-14}, 45.2);
+      tl.to('#s3-eyebrow',   {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 45.2);
+      tl.set('#s3-headline', {opacity:0, y:20}, 45.45);
+      tl.to('#s3-headline',  {opacity:1, y:0,  ease:'back.out(1.2)', duration:0.5}, 45.45);
+      tl.set('#s3-quote',    {opacity:0, y:12}, 45.9);
+      tl.to('#s3-quote',     {opacity:1, y:0,  ease:'power2.out', duration:0.5}, 45.9);
+      tl.set('#s3-company-1',{opacity:0, x:-30}, 46.3);
+      tl.to('#s3-company-1', {opacity:1, x:0,  ease:'back.out(1.3)', duration:0.55}, 46.3);
+      tl.set('#s3-company-2',{opacity:0, x:30}, 46.55);
+      tl.to('#s3-company-2', {opacity:1, x:0,  ease:'back.out(1.3)', duration:0.55}, 46.55);
+      tl.set('#s3-quote-txt',{opacity:0}, 47.2);
+      tl.to('#s3-quote-txt', {opacity:1, ease:'power2.out', duration:0.4}, 47.2);
       tl.from('#s3-amb-1', { y:'+=14', scale:1.05, opacity:0.05, repeat:ambR(5,45,76), yoyo:true, duration:5, ease:'sine.inOut' }, 45);
 
-      /* ── S4 (76-102s) ── */
-      tl.set('#s4-eyebrow', {opacity:0}, 76.2);
-      tl.to('#s4-eyebrow',  {opacity:1, ease:'power2.out', duration:0.35}, 76.2);
-      tl.set('#s4-headline', {opacity:0}, 76.4);
-      tl.to('#s4-headline',  {opacity:1, ease:'power2.out', duration:0.45}, 76.4);
-      tl.set('#s4-agent-1, #s4-agent-2, #s4-agent-3, #s4-agent-4, #s4-agent-5, #s4-agent-6, #s4-agent-7', {opacity:0}, 76.8);
-      tl.to('#s4-agent-1, #s4-agent-2, #s4-agent-3, #s4-agent-4, #s4-agent-5, #s4-agent-6, #s4-agent-7',  {opacity:1, ease:'power2.out', duration:0.45, stagger:0.1}, 76.8);
-      tl.addLabel('s4-agents-spotlight', 79.0);
-      tl.to('#s4-agent-1', {className:'+=agent-highlight', duration:0.1}, 's4-agents-spotlight');
-      tl.to('#s4-agent-1', {className:'-=agent-highlight', duration:0.2}, 's4-agents-spotlight+=1.4');
-      tl.to('#s4-agent-2', {className:'+=agent-highlight', duration:0.1}, 's4-agents-spotlight+=1.6');
-      tl.to('#s4-agent-2', {className:'-=agent-highlight', duration:0.2}, 's4-agents-spotlight+=3.0');
-      tl.to('#s4-agent-3', {className:'+=agent-highlight', duration:0.1}, 's4-agents-spotlight+=3.2');
-      tl.to('#s4-agent-3', {className:'-=agent-highlight', duration:0.2}, 's4-agents-spotlight+=4.6');
-      tl.to('#s4-agent-4', {className:'+=agent-highlight', duration:0.1}, 's4-agents-spotlight+=4.8');
-      tl.to('#s4-agent-4', {className:'-=agent-highlight', duration:0.2}, 's4-agents-spotlight+=6.2');
-      tl.to('#s4-agent-5', {className:'+=agent-highlight', duration:0.1}, 's4-agents-spotlight+=6.4');
-      tl.to('#s4-agent-5', {className:'-=agent-highlight', duration:0.2}, 's4-agents-spotlight+=7.8');
-      tl.to('#s4-agent-6', {className:'+=agent-highlight', duration:0.1}, 's4-agents-spotlight+=8.0');
-      tl.to('#s4-agent-6', {className:'-=agent-highlight', duration:0.2}, 's4-agents-spotlight+=9.4');
-      tl.to('#s4-agent-7', {className:'+=agent-highlight', duration:0.1}, 's4-agents-spotlight+=9.6');
-      tl.to('#s4-agent-7', {className:'-=agent-highlight', duration:0.2}, 's4-agents-spotlight+=11.0');
-      tl.set('#s4-punch', {opacity:0}, 77.8);
-      tl.to('#s4-punch',  {opacity:1, ease:'power2.out', duration:0.35}, 77.8);
-      tl.set('#s4-quote-txt', {opacity:0}, 78.6);
-      tl.to('#s4-quote-txt',  {opacity:1, ease:'power2.out', duration:0.4}, 78.6);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 4 — 76–102s  入场：Agent卡片依次弹入 + spotlight
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s4-eyebrow',  {opacity:0, y:-14}, 76.2);
+      tl.to('#s4-eyebrow',   {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 76.2);
+      tl.set('#s4-headline', {opacity:0, y:22}, 76.45);
+      tl.to('#s4-headline',  {opacity:1, y:0,  ease:'back.out(1.2)', duration:0.5}, 76.45);
+      tl.set('#s4-agent-1, #s4-agent-2, #s4-agent-3, #s4-agent-4, #s4-agent-5, #s4-agent-6, #s4-agent-7',
+             {opacity:0, y:18, scale:0.88}, 76.9);
+      tl.to('#s4-agent-1, #s4-agent-2, #s4-agent-3, #s4-agent-4, #s4-agent-5, #s4-agent-6, #s4-agent-7',
+             {opacity:1, y:0, scale:1, ease:'back.out(1.4)', duration:0.45, stagger:0.08}, 76.9);
+      tl.set('#s4-punch',    {opacity:0}, 77.9);
+      tl.to('#s4-punch',    {opacity:1, ease:'power2.out', duration:0.35}, 77.9);
+      tl.set('#s4-quote-txt',{opacity:0}, 78.8);
+      tl.to('#s4-quote-txt', {opacity:1, ease:'power2.out', duration:0.4}, 78.8);
+      tl.addLabel('s4-spotlight', 79.2);
+      tl.to('#s4-agent-1', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's4-spotlight');
+      tl.to('#s4-agent-1', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's4-spotlight+=1.4');
+      tl.to('#s4-agent-2', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's4-spotlight+=1.6');
+      tl.to('#s4-agent-2', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's4-spotlight+=3.0');
+      tl.to('#s4-agent-3', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's4-spotlight+=3.2');
+      tl.to('#s4-agent-3', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's4-spotlight+=4.6');
+      tl.to('#s4-agent-4', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's4-spotlight+=4.8');
+      tl.to('#s4-agent-4', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's4-spotlight+=6.2');
+      tl.to('#s4-agent-5', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's4-spotlight+=6.4');
+      tl.to('#s4-agent-5', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's4-spotlight+=7.8');
+      tl.to('#s4-agent-6', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's4-spotlight+=8.0');
+      tl.to('#s4-agent-6', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's4-spotlight+=9.4');
+      tl.to('#s4-agent-7', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's4-spotlight+=9.6');
+      tl.to('#s4-agent-7', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's4-spotlight+=11.0');
       tl.from('#s4-amb-1', { y:'+=18', scale:1.08, opacity:0.06, repeat:ambR(5,76,102), yoyo:true, duration:5, ease:'sine.inOut' }, 76);
 
-      /* ── S5 (102-115s) ── */
-      tl.set('#s5-eyebrow', {opacity:0}, 102.2);
-      tl.to('#s5-eyebrow',  {opacity:1, ease:'power2.out', duration:0.35}, 102.2);
-      tl.set('#s5-headline', {opacity:0}, 102.4);
-      tl.to('#s5-headline',  {opacity:1, ease:'power2.out', duration:0.4}, 102.4);
-      tl.set('#s5-sub', {opacity:0}, 102.8);
-      tl.to('#s5-sub',  {opacity:1, ease:'power2.out', duration:0.35}, 102.8);
-      tl.set('#s5-stat-1, #s5-stat-2, #s5-stat-3', {opacity:0}, 103.2);
-      tl.to('#s5-stat-1, #s5-stat-2, #s5-stat-3',  {opacity:1, ease:'power2.out', duration:0.45, stagger:0.15}, 103.2);
-      tl.set('#s5-quote-txt', {opacity:0}, 105.0);
-      tl.to('#s5-quote-txt',  {opacity:1, ease:'power2.out', duration:0.4}, 105.0);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 5 — 102–115s  入场：大数字scale弹入
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s5-eyebrow',  {opacity:0, y:-14}, 102.2);
+      tl.to('#s5-eyebrow',   {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 102.2);
+      tl.set('#s5-headline', {opacity:0, y:20}, 102.45);
+      tl.to('#s5-headline',  {opacity:1, y:0,  ease:'back.out(1.2)', duration:0.45}, 102.45);
+      tl.set('#s5-sub',     {opacity:0}, 102.9);
+      tl.to('#s5-sub',     {opacity:1, ease:'power2.out', duration:0.35}, 102.9);
+      tl.set('#s5-stat-1', {opacity:0, scale:0.6, y:10}, 103.25);
+      tl.to('#s5-stat-1',  {opacity:1, scale:1, y:0, ease:'back.out(1.5)', duration:0.5}, 103.25);
+      tl.set('#s5-stat-2', {opacity:0, scale:0.6, y:10}, 103.5);
+      tl.to('#s5-stat-2',  {opacity:1, scale:1, y:0, ease:'back.out(1.5)', duration:0.5}, 103.5);
+      tl.set('#s5-stat-3', {opacity:0, scale:0.6, y:10}, 103.75);
+      tl.to('#s5-stat-3',  {opacity:1, scale:1, y:0, ease:'back.out(1.5)', duration:0.5}, 103.75);
+      tl.set('#s5-quote-txt',{opacity:0}, 105.2);
+      tl.to('#s5-quote-txt', {opacity:1, ease:'power2.out', duration:0.4}, 105.2);
       tl.from('#s5-amb-1', { y:'+=10', scale:1.04, opacity:0.05, repeat:ambR(4,102,115), yoyo:true, duration:4, ease:'sine.inOut' }, 102);
 
-      /* ── S6 (115-159s) ── */
-      tl.set('#s6-eyebrow', {opacity:0}, 115.2);
-      tl.to('#s6-eyebrow',  {opacity:1, ease:'power2.out', duration:0.35}, 115.2);
-      tl.set('#s6-headline', {opacity:0}, 115.4);
-      tl.to('#s6-headline',  {opacity:1, ease:'power2.out', duration:0.4}, 115.4);
-      tl.set('#s6-q', {opacity:0}, 115.7);
-      tl.to('#s6-q',  {opacity:1, ease:'power2.out', duration:0.35}, 115.7);
-      tl.set('#s6-a', {opacity:0}, 115.9);
-      tl.to('#s6-a',  {opacity:1, ease:'power2.out', duration:0.35}, 115.9);
-      tl.set('#s6-case', {opacity:0}, 116.3);
-      tl.to('#s6-case',  {opacity:1, ease:'power2.out', duration:0.4}, 116.3);
-      tl.set('#s6-flow-step-1, #s6-flow-step-2, #s6-flow-step-3, #s6-flow-step-4', {opacity:0}, 116.7);
-      tl.to('#s6-flow-step-1, #s6-flow-step-2, #s6-flow-step-3, #s6-flow-step-4',  {opacity:1, ease:'power2.out', duration:0.4, stagger:0.12}, 116.7);
-      tl.set('#s6-quote-txt', {opacity:0}, 117.5);
-      tl.to('#s6-quote-txt',  {opacity:1, ease:'power2.out', duration:0.4}, 117.5);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 6 — 115–159s  入场：案例卡片x滑入 + 流程步骤依次亮
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s6-eyebrow',  {opacity:0, y:-14}, 115.2);
+      tl.to('#s6-eyebrow',   {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 115.2);
+      tl.set('#s6-headline', {opacity:0, y:20}, 115.45);
+      tl.to('#s6-headline',  {opacity:1, y:0,  ease:'back.out(1.2)', duration:0.45}, 115.45);
+      tl.set('#s6-q',       {opacity:0, y:10}, 115.8);
+      tl.to('#s6-q',        {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 115.8);
+      tl.set('#s6-a',       {opacity:0, y:10}, 116.0);
+      tl.to('#s6-a',        {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 116.0);
+      tl.set('#s6-case',   {opacity:0, x:-24}, 116.4);
+      tl.to('#s6-case',    {opacity:1, x:0,  ease:'back.out(1.3)', duration:0.45}, 116.4);
+      tl.set('#s6-flow-step-1',{opacity:0, y:12}, 116.9);
+      tl.to('#s6-flow-step-1', {opacity:1, y:0, ease:'power2.out', duration:0.3}, 116.9);
+      tl.set('#s6-flow-step-2',{opacity:0, y:12}, 117.2);
+      tl.to('#s6-flow-step-2', {opacity:1, y:0, ease:'power2.out', duration:0.3}, 117.2);
+      tl.set('#s6-flow-step-3',{opacity:0, y:12}, 117.5);
+      tl.to('#s6-flow-step-3', {opacity:1, y:0, ease:'power2.out', duration:0.3}, 117.5);
+      tl.set('#s6-flow-step-4',{opacity:0, y:12}, 117.8);
+      tl.to('#s6-flow-step-4', {opacity:1, y:0, ease:'power2.out', duration:0.3}, 117.8);
+      tl.set('#s6-quote-txt',{opacity:0}, 118.6);
+      tl.to('#s6-quote-txt', {opacity:1, ease:'power2.out', duration:0.4}, 118.6);
       tl.from('#s6-amb-1', { y:'+=12', scale:1.05, opacity:0.05, repeat:ambR(5,115,159), yoyo:true, duration:5, ease:'sine.inOut' }, 115);
 
-      /* ── S7 (159-190s) ── */
-      tl.set('#s7-eyebrow', {opacity:0}, 159.15);
-      tl.to('#s7-eyebrow',  {opacity:1, ease:'power2.out', duration:0.3}, 159.15);
-      tl.set('#s7-headline', {opacity:0}, 159.3);
-      tl.to('#s7-headline',  {opacity:1, ease:'power2.out', duration:0.35}, 159.3);
-      tl.set('#s7-subtitle', {opacity:0}, 159.5);
-      tl.to('#s7-subtitle',  {opacity:1, ease:'power2.out', duration:0.3}, 159.5);
-      tl.set('#s7-metric-1, #s7-metric-2, #s7-metric-3', {opacity:0}, 159.7);
-      tl.to('#s7-metric-1, #s7-metric-2, #s7-metric-3',  {opacity:1, ease:'power2.out', duration:0.35, stagger:0.1}, 159.7);
-      tl.set('#s7-project-1, #s7-project-2, #s7-project-3', {opacity:0}, 160.1);
-      tl.to('#s7-project-1, #s7-project-2, #s7-project-3',  {opacity:1, ease:'power2.out', duration:0.35, stagger:0.1}, 160.1);
-      tl.set('#s7-ach-1, #s7-ach-2, #s7-ach-3', {opacity:0}, 160.5);
-      tl.to('#s7-ach-1, #s7-ach-2, #s7-ach-3',  {opacity:1, ease:'power2.out', duration:0.3, stagger:0.08}, 160.5);
-      tl.set('#s7-quote-txt', {opacity:0}, 161.3);
-      tl.to('#s7-quote-txt',  {opacity:1, ease:'power2.out', duration:0.4}, 161.3);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 7 — 159–190s  入场：项目卡片x滑入 + 成就淡入
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s7-eyebrow',  {opacity:0, y:-14}, 159.15);
+      tl.to('#s7-eyebrow',   {opacity:1, y:0,  ease:'power2.out', duration:0.3}, 159.15);
+      tl.set('#s7-headline', {opacity:0, y:20}, 159.35);
+      tl.to('#s7-headline',  {opacity:1, y:0,  ease:'back.out(1.2)', duration:0.4}, 159.35);
+      tl.set('#s7-subtitle', {opacity:0}, 159.6);
+      tl.to('#s7-subtitle',  {opacity:1, ease:'power2.out', duration:0.3}, 159.6);
+      tl.set('#s7-metric-1, #s7-metric-2, #s7-metric-3', {opacity:0, scale:0.8}, 159.85);
+      tl.to('#s7-metric-1, #s7-metric-2, #s7-metric-3',  {opacity:1, scale:1, ease:'back.out(1.4)', duration:0.4, stagger:0.1}, 159.85);
+      tl.set('#s7-project-1',{opacity:0, x:24}, 160.2);
+      tl.to('#s7-project-1', {opacity:1, x:0,  ease:'back.out(1.3)', duration:0.4}, 160.2);
+      tl.set('#s7-project-2',{opacity:0, x:24}, 160.4);
+      tl.to('#s7-project-2', {opacity:1, x:0,  ease:'back.out(1.3)', duration:0.4}, 160.4);
+      tl.set('#s7-project-3',{opacity:0, x:24}, 160.6);
+      tl.to('#s7-project-3', {opacity:1, x:0,  ease:'back.out(1.3)', duration:0.4}, 160.6);
+      tl.set('#s7-ach-1, #s7-ach-2, #s7-ach-3', {opacity:0, y:10}, 160.9);
+      tl.to('#s7-ach-1, #s7-ach-2, #s7-ach-3',  {opacity:1, y:0, ease:'power2.out', duration:0.35, stagger:0.1}, 160.9);
+      tl.set('#s7-quote-txt',{opacity:0}, 161.5);
+      tl.to('#s7-quote-txt', {opacity:1, ease:'power2.out', duration:0.4}, 161.5);
       tl.from('#s7-amb-1', { y:'+=14', scale:1.05, opacity:0.06, repeat:ambR(5,159,190), yoyo:true, duration:5, ease:'sine.inOut' }, 159);
 
-      /* ── S8 (190-230s) ── */
-      tl.set('#s8-eyebrow', {opacity:0}, 190.2);
-      tl.to('#s8-eyebrow',  {opacity:1, ease:'power2.out', duration:0.35}, 190.2);
-      tl.set('#s8-headline', {opacity:0}, 190.4);
-      tl.to('#s8-headline',  {opacity:1, ease:'power2.out', duration:0.45}, 190.4);
-      tl.set('#s8-svc-1, #s8-svc-2', {opacity:0}, 190.8);
-      tl.to('#s8-svc-1, #s8-svc-2',  {opacity:1, ease:'power2.out', duration:0.5, stagger:0.2}, 190.8);
-      tl.set('#s8-quote-txt', {opacity:0}, 191.6);
-      tl.to('#s8-quote-txt',  {opacity:1, ease:'power2.out', duration:0.4}, 191.6);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 8 — 190–230s  入场：两卡对向合拢
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s8-eyebrow',  {opacity:0, y:-14}, 190.2);
+      tl.to('#s8-eyebrow',   {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 190.2);
+      tl.set('#s8-headline', {opacity:0, y:18}, 190.45);
+      tl.to('#s8-headline',  {opacity:1, y:0,  ease:'back.out(1.2)', duration:0.5}, 190.45);
+      tl.set('#s8-svc-1',   {opacity:0, x:-32}, 191.0);
+      tl.to('#s8-svc-1',    {opacity:1, x:0,  ease:'back.out(1.4)', duration:0.55}, 191.0);
+      tl.set('#s8-svc-2',   {opacity:0, x:32}, 191.25);
+      tl.to('#s8-svc-2',    {opacity:1, x:0,  ease:'back.out(1.4)', duration:0.55}, 191.25);
+      tl.set('#s8-quote-txt',{opacity:0}, 191.9);
+      tl.to('#s8-quote-txt', {opacity:1, ease:'power2.out', duration:0.4}, 191.9);
       tl.from('#s8-amb-1', { y:'+=12', scale:1.04, opacity:0.05, repeat:ambR(5,190,230), yoyo:true, duration:5, ease:'sine.inOut' }, 190);
 
-      /* ── S9 (230-295s) ── */
-      tl.set('#s9-eyebrow', {opacity:0}, 230.2);
-      tl.to('#s9-eyebrow',  {opacity:1, ease:'power2.out', duration:0.35}, 230.2);
-      tl.set('#s9-headline', {opacity:0}, 230.4);
-      tl.to('#s9-headline',  {opacity:1, ease:'power2.out', duration:0.45}, 230.4);
-      tl.set('#s9-agent-1, #s9-agent-2, #s9-agent-3, #s9-agent-4, #s9-agent-5, #s9-agent-6, #s9-agent-7', {opacity:0}, 230.8);
-      tl.to('#s9-agent-1, #s9-agent-2, #s9-agent-3, #s9-agent-4, #s9-agent-5, #s9-agent-6, #s9-agent-7',  {opacity:1, ease:'power2.out', duration:0.45, stagger:0.1}, 230.8);
-      tl.addLabel('s9-spotlight', 233.5);
-      tl.to('#s9-agent-1', {className:'+=agent-highlight', duration:0.1}, 's9-spotlight');
-      tl.to('#s9-agent-1', {className:'-=agent-highlight', duration:0.2}, 's9-spotlight+=1.4');
-      tl.to('#s9-agent-2', {className:'+=agent-highlight', duration:0.1}, 's9-spotlight+=1.6');
-      tl.to('#s9-agent-2', {className:'-=agent-highlight', duration:0.2}, 's9-spotlight+=3.0');
-      tl.to('#s9-agent-3', {className:'+=agent-highlight', duration:0.1}, 's9-spotlight+=3.2');
-      tl.to('#s9-agent-3', {className:'-=agent-highlight', duration:0.2}, 's9-spotlight+=4.6');
-      tl.to('#s9-agent-4', {className:'+=agent-highlight', duration:0.1}, 's9-spotlight+=4.8');
-      tl.to('#s9-agent-4', {className:'-=agent-highlight', duration:0.2}, 's9-spotlight+=6.2');
-      tl.to('#s9-agent-5', {className:'+=agent-highlight', duration:0.1}, 's9-spotlight+=6.4');
-      tl.to('#s9-agent-5', {className:'-=agent-highlight', duration:0.2}, 's9-spotlight+=7.8');
-      tl.to('#s9-agent-6', {className:'+=agent-highlight', duration:0.1}, 's9-spotlight+=8.0');
-      tl.to('#s9-agent-6', {className:'-=agent-highlight', duration:0.2}, 's9-spotlight+=9.4');
-      tl.to('#s9-agent-7', {className:'+=agent-highlight', duration:0.1}, 's9-spotlight+=9.6');
-      tl.to('#s9-agent-7', {className:'-=agent-highlight', duration:0.2}, 's9-spotlight+=11.0');
-      tl.set('#s9-punch', {opacity:0}, 232.0);
-      tl.to('#s9-punch',  {opacity:1, ease:'power2.out', duration:0.35}, 232.0);
-      tl.set('#s9-quote-txt', {opacity:0}, 232.8);
-      tl.to('#s9-quote-txt',  {opacity:1, ease:'power2.out', duration:0.4}, 232.8);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 9 — 230–295s  入场：Agent弹入 + spotlight
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s9-eyebrow',  {opacity:0, y:-14}, 230.2);
+      tl.to('#s9-eyebrow',   {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 230.2);
+      tl.set('#s9-headline', {opacity:0, y:22}, 230.45);
+      tl.to('#s9-headline',  {opacity:1, y:0,  ease:'back.out(1.2)', duration:0.5}, 230.45);
+      tl.set('#s9-agent-1, #s9-agent-2, #s9-agent-3, #s9-agent-4, #s9-agent-5, #s9-agent-6, #s9-agent-7',
+             {opacity:0, y:18, scale:0.88}, 230.9);
+      tl.to('#s9-agent-1, #s9-agent-2, #s9-agent-3, #s9-agent-4, #s9-agent-5, #s9-agent-6, #s9-agent-7',
+             {opacity:1, y:0, scale:1, ease:'back.out(1.4)', duration:0.45, stagger:0.08}, 230.9);
+      tl.set('#s9-punch',    {opacity:0}, 232.1);
+      tl.to('#s9-punch',    {opacity:1, ease:'power2.out', duration:0.35}, 232.1);
+      tl.set('#s9-quote-txt',{opacity:0}, 233.0);
+      tl.to('#s9-quote-txt', {opacity:1, ease:'power2.out', duration:0.4}, 233.0);
+      tl.addLabel('s9-spotlight', 233.8);
+      tl.to('#s9-agent-1', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's9-spotlight');
+      tl.to('#s9-agent-1', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's9-spotlight+=1.4');
+      tl.to('#s9-agent-2', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's9-spotlight+=1.6');
+      tl.to('#s9-agent-2', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's9-spotlight+=3.0');
+      tl.to('#s9-agent-3', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's9-spotlight+=3.2');
+      tl.to('#s9-agent-3', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's9-spotlight+=4.6');
+      tl.to('#s9-agent-4', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's9-spotlight+=4.8');
+      tl.to('#s9-agent-4', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's9-spotlight+=6.2');
+      tl.to('#s9-agent-5', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's9-spotlight+=6.4');
+      tl.to('#s9-agent-5', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's9-spotlight+=7.8');
+      tl.to('#s9-agent-6', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's9-spotlight+=8.0');
+      tl.to('#s9-agent-6', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's9-spotlight+=9.4');
+      tl.to('#s9-agent-7', {className:'+=agent-highlight', overwrite:'auto', duration:0.1}, 's9-spotlight+=9.6');
+      tl.to('#s9-agent-7', {className:'-=agent-highlight', overwrite:'auto', duration:0.2}, 's9-spotlight+=11.0');
       tl.from('#s9-amb-1', { y:'+=16', scale:1.06, opacity:0.06, repeat:ambR(5,230,295), yoyo:true, duration:5, ease:'sine.inOut' }, 230);
 
-      /* ── S10 (295-321s) ── */
-      tl.set('#s10-eyebrow', {opacity:0}, 295.3);
-      tl.to('#s10-eyebrow',  {opacity:1, ease:'power2.out', duration:0.35}, 295.3);
-      tl.set('#s10-headline', {opacity:0}, 295.5);
-      tl.to('#s10-headline',  {opacity:1, ease:'power2.out', duration:0.45}, 295.5);
-      tl.set('#s10-rule', {opacity:0}, 295.8);
-      tl.to('#s10-rule',  {opacity:1, ease:'power2.out', duration:0.3}, 295.8);
-      tl.set('#s10-tagline', {opacity:0}, 295.95);
-      tl.to('#s10-tagline',  {opacity:1, ease:'power2.out', duration:0.35}, 295.95);
-      tl.set('#s10-contact-row', {opacity:0}, 296.1);
-      tl.to('#s10-contact-row',  {opacity:1, ease:'power2.out', duration:0.4}, 296.1);
-      tl.set('#s10-cta', {opacity:0}, 296.5);
-      tl.to('#s10-cta',  {opacity:1, ease:'power2.out', duration:0.35}, 296.5);
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 10 — 295–347s  入场：元素依次出现
+      ═══════════════════════════════════════════════════════════════ */
+      tl.set('#s10-eyebrow',   {opacity:0, y:-14}, 295.3);
+      tl.to('#s10-eyebrow',    {opacity:1, y:0,  ease:'power2.out', duration:0.35}, 295.3);
+      tl.set('#s10-headline',  {opacity:0, y:24, scale:0.92}, 295.55);
+      tl.to('#s10-headline',   {opacity:1, y:0, scale:1, ease:'back.out(1.3)', duration:0.6}, 295.55);
+      tl.set('#s10-rule',      {opacity:0, scaleX:0}, 295.9);
+      tl.to('#s10-rule',       {opacity:1, scaleX:1, ease:'power2.out', duration:0.35}, 295.9);
+      tl.set('#s10-tagline',   {opacity:0}, 296.05);
+      tl.to('#s10-tagline',    {opacity:1, ease:'power2.out', duration:0.35}, 296.05);
+      tl.set('#s10-contact-row',{opacity:0, y:12}, 296.2);
+      tl.to('#s10-contact-row', {opacity:1, y:0, ease:'power2.out', duration:0.4}, 296.2);
+      tl.set('#s10-cta',      {opacity:0, scale:0.82}, 296.6);
+      tl.to('#s10-cta',       {opacity:1, scale:1, ease:'back.out(1.4)', duration:0.45}, 296.6);
       tl.from('#s10-amb-1', { y:'+=18', scale:1.06, opacity:0.06, repeat:ambR(5,295,347), yoyo:true, duration:5, ease:'sine.inOut' }, 295);
 
-      /* ── S11 结尾定格 (347s+) ── */
+      /* ═══════════════════════════════════════════════════════════════
+         SCENE 11 — 347s+  结尾定格
+      ═══════════════════════════════════════════════════════════════ */
       tl.set('#s11', {opacity:0}, 347);
       tl.to('#s11', {opacity:1, ease:'power2.out', duration:0.5}, 347);
+
+      /* ═══════════════════════════════════════════════════════════════
+         SUBTITLE SYSTEM — 逐词高亮动画
+         时间轴（秒）：基于 narration_script.txt 27段，手动对齐音频
+      ═══════════════════════════════════════════════════════════════ */
+      var SUB = [
+        { s: 1.5,  e: 17.0, t: '欢迎来到红泥数智科技。我是王凡，一个在政企信息化领域深耕十六年的老兵。' },
+        { s: 17.0, e: 45.0, t: '2008年西北工业大学软件工程专业毕业，我加入华为从一名软件工程师起步。' },
+        { s: 45.0, e: 76.0, t: '离开华为后，2017年我加入海平方，从零组建算法团队。2018年出任宏崎达技术副总经理。' },
+        { s: 76.0, e: 102.0, t: '2024年我创立红泥数智，专注AI加政务数字化。一支全新的团队，七个专业的AI Agent。' },
+        { s: 102.0, e: 115.0, t: '十六年的积累让我有底气做这件事。一亿八千万的项目交付金额，三十五加的团队管理经验。' },
+        { s: 115.0, e: 159.0, t: '第一，数据资产入表。我们成功完成了延安水务环保集团的数据资产入表项目，六家单位完成数据资产确权挂牌。' },
+        { s: 159.0, e: 190.0, t: '第二，AI加政务数字化。吴起、志丹、宜川三个县域的智慧城市项目，总金额一亿八千万元。' },
+        { s: 190.0, e: 230.0, t: '第三，AI咨询与培训。我们帮助十余家企业完成AI转型，培训五十多名技术人员。第四，产品技术顾问。' },
+        { s: 230.0, e: 295.0, t: '红泥数智AI团队，七个专业Agent协同工作。战略官统筹全局，内容官负责文案，智囊提供分析建议，增长官负责增长。' },
+        { s: 295.0, e: 347.0, t: '我是王凡，红泥数智创始人。AI加政务数字化专家，数据资产入表顾问。欢迎联系，期待与您的合作。' },
+      ];
+
+      /* 将字幕文字拆成字符span，插入#sub-text */
+      function buildChars(text) {
+        var el = document.getElementById('sub-text');
+        el.innerHTML = '';
+        for (var i = 0; i < text.length; i++) {
+          var span = document.createElement('span');
+          span.className = 'sub-char';
+          span.dataset.idx = i;
+          if (text[i] === ' ' || text[i] === '\u3000') {
+            span.innerHTML = '';
+            var sp = document.createElement('span');
+            sp.className = 'sub-space';
+            el.appendChild(sp);
+          } else {
+            el.appendChild(span);
+          }
+          span.textContent = text[i];
+        }
+      }
+
+      /* 逐词高亮动画：按批次点亮字符 */
+      function animateSubtitle(seg, idx) {
+        var el = document.getElementById('sub-text');
+        var chars = el.querySelectorAll ? el.querySelectorAll('.sub-char') : el.getElementsByClassName('sub-char');
+        if (!chars || chars.length === 0) {
+          /* 下一段 */
+          if (idx + 1 < SUB.length) setTimeout(function() { animateSubtitle(SUB[idx+1], idx+1); }, (seg.e - seg.s) * 1000);
+          return;
+        }
+        var total = chars.length;
+        var BATCH = 4; /* 每批4个字符 */
+        var batches = Math.ceil(total / BATCH);
+        var segDur = Math.max(0.1, seg.e - seg.s - 0.6); /* 保留0.6s淡出 */
+        var stepDur = segDur / batches;
+
+        var stl = gsap.timeline({
+          onComplete: function() {
+            /* 淡出整句 */
+            gsap.to('#sub-text', { opacity: 0, duration: 0.4, ease: 'power2.in', onComplete: function() {
+              if (idx + 1 < SUB.length) animateSubtitle(SUB[idx+1], idx+1);
+            }});
+          }
+        });
+
+        /* 填入文字，淡入 */
+        buildChars(seg.t);
+        stl.set('#sub-text', { opacity: 0 });
+        stl.to('#sub-text', { opacity: 1, duration: 0.3, ease: 'power2.out' });
+
+        /* 逐批高亮 */
+        for (var b = 0; b < batches; b++) {
+          var from = b * BATCH;
+          var to = Math.min(from + BATCH, total);
+          var batchChars = [];
+          for (var k = from; k < to; k++) {
+            if (chars[k]) batchChars.push(chars[k]);
+          }
+          (function(ac) {
+            stl.to(ac, {
+              color: '#f5f5f5',
+              fontWeight: '700',
+              textShadow: '0 0 18px rgba(255,255,255,0.55)',
+              duration: 0.12,
+              ease: 'none',
+              stagger: 0.025
+            }, b * stepDur);
+          })(batchChars);
+        }
+
+        /* 整句读完保持一点时间后淡出 */
+        stl.to({}, { duration: segDur - batches * stepDur });
+      }
+
+      /* 等字幕元素就绪后启动（延迟0.5s确保DOM已挂载）*/
+      setTimeout(function() {
+        if (SUB.length > 0) animateSubtitle(SUB[0], 0);
+      }, 500);
 
       window.__timelines = window.__timelines || {};
       window.__timelines['scenes'] = tl;
