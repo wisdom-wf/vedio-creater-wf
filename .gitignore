@@ -1,0 +1,5 @@
+node_modules/
+renders/
+.waveform-cache/
+.DS_Store
+*.mp4
